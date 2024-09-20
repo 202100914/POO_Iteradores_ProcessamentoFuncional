@@ -8,7 +8,7 @@ public class StreamingService {
      * Constructor of class StreamingService.
      */
     public StreamingService() {
-
+        activeAccounts = new ArrayList<>();
     }
     /**
      * Get the list of accounts.
@@ -16,7 +16,7 @@ public class StreamingService {
      * @return This streaming service active accounts.
      */
     public List<Account> getActiveAccounts() {
-
+        return activeAccounts;
     }
     /**
      * Add an account.
@@ -24,7 +24,7 @@ public class StreamingService {
      * @param account to add.
      */
     public void addAccount(Account account) {
-
+        activeAccounts.add(account);
     }
     /**
      * Remove an account.
@@ -32,7 +32,7 @@ public class StreamingService {
      * @param account to remove.
      */
     public void removeAccount(Account account) {
-
+        activeAccounts.removeIf(it -> it.equals(account));
     }
     /**
      * Remove all accounts that didn't pay. Implementation using an iterator.
@@ -60,7 +60,7 @@ public class StreamingService {
      * @return A list with all accounts that didn't pay.
      */
     public List<Account> getListOfUnpaidAccounts() {
-
+        return null;
     }
     /**
      * Count the amount of accounts that didn't pay. Implementation using
@@ -69,10 +69,10 @@ public class StreamingService {
      * @return The amount of accounts that didn't pay.
      */
     public long countUnpaidAccounts() {
-
+        return -1;
     }
     @Override
     public String toString() {
-
+        return null;
     }
 }
