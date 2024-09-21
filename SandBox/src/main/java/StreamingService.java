@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class StreamingService {
     private List<Account> activeAccounts;
@@ -38,20 +39,27 @@ public class StreamingService {
      * Remove all accounts that didn't pay. Implementation using an iterator.
      */
     public void removeUnpaidAccounts() {
+        Iterator <Account> it = this.activeAccounts.iterator();
 
+        while (it.hasNext()){
+            Account account = it.next();
+            if (!account.isPaid())
+                it.remove();
+        }
     }
     /**
      * Clear all payments. Implementation using functional
      * programming.
      */
     public void setAllAccountsAsUnpaid() {
-
+        activeAccounts.forEach(account -> account.setPaid(false));
     }
+
     /**
      * Remove all accounts that didn't pay. Implementation using removeIf method.
      */
     public void removeUnpaidAccountsRemoveIf() {
-
+        activeAccounts.removeIf(account -> !account.isPaid());
     }
     /**
      * Get the list of accounts that didn't pay. Implementation using functional
@@ -60,7 +68,11 @@ public class StreamingService {
      * @return A list with all accounts that didn't pay.
      */
     public List<Account> getListOfUnpaidAccounts() {
-        return null;
+
+
+        return activeAccounts.stream()
+                .filter(account -> !account.isPaid())
+                .collect(Collectors.toList());
     }
     /**
      * Count the amount of accounts that didn't pay. Implementation using
@@ -69,10 +81,19 @@ public class StreamingService {
      * @return The amount of accounts that didn't pay.
      */
     public long countUnpaidAccounts() {
-        return -1;
+        return activeAccounts.stream()
+                .filter(account -> !account.isPaid())
+                .map(account -> 1L)
+                .reduce(0L, Long::sum);
     }
+
     @Override
     public String toString() {
-        return null;
+        return activeAccounts.stream()
+                .map(account -> String.format("%-20s %s", account.getName(), account.isPaid()))
+                .collect(Collectors.joining("\n", "Nome                Pago\n", ""));
     }
+
+
+
 }
